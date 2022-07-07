@@ -1,3 +1,6 @@
+# Code coverage
+/coverage
+
 # Miscellaneous
 *.class
 *.log
