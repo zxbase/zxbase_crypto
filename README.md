@@ -18,8 +18,11 @@ Zxbase crypto helpers.
 * Public key cryptography.
 
 ## Getting started
-
-Include zxbase_crypto package in pubspec.yaml.
+In _pubspec.yaml_:
+```yaml
+dependencies:
+  zxbase_crypto: ^1.0.0
+```
 
 ## Usage
 
