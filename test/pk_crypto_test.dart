@@ -1,5 +1,5 @@
 import 'package:zxbase_crypto/pk_crypto.dart';
-import 'package:flutter_test/flutter_test.dart';
+import 'package:test/test.dart';
 
 void main() {
   test('Generate 2 different Ed25519 keys', () async {
