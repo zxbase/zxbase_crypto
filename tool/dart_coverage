@@ -1,0 +1,4 @@
+#!/bin/bash
+dart pub global activate coverage
+dart test --coverage="coverage"
+format_coverage --lcov -i coverage -o coverage/coverage.lcov --report-on=lib

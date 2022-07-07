@@ -25,8 +25,8 @@ jobs:
       - name: Analyze project source
         run: dart analyze --fatal-infos
 
+      - name: Check outdated dependencies
+        run: ./tool/dependencies
+
       - name: Run tests
-        run: dart test
-        
-      - name: Run tests with coverage
-        run: flutter test --coverage
+        run: ./tool/dart_coverage
