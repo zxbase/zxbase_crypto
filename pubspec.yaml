@@ -1,5 +1,5 @@
 name: zxbase_crypto
-description: A new Flutter package project.
+description: Crypto helpers.
 version: 0.0.1
 homepage:
 
@@ -10,6 +10,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  cryptography: ^2.0.0
 
 dev_dependencies:
   flutter_test:
