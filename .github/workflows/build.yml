@@ -8,6 +8,7 @@ on:
 
 jobs:
   build:
+    name: Build
     runs-on: ubuntu-latest
 
     steps:
@@ -28,14 +29,8 @@ jobs:
       - name: Run tests
         run: ./tool/dart_coverage
 
-  coverage:
-    name: Generate coverage report
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Report code coverage
-        uses: zgosalvez/github-actions-report-lcov@v1
+      - name: Upload code coverage report
+        uses: actions/upload-artifact@v3
         with:
-          coverage-files: ./coverage/coverage.lcov
-          minimum-coverage: 100
-          artifact-name: code-coverage-report
+          name: code-coverage-report
+          path: coverage
