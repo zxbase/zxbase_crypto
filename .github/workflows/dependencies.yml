@@ -7,7 +7,8 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build:
+  deps:
+    name: Dependencies
     runs-on: ubuntu-latest
 
     steps:
