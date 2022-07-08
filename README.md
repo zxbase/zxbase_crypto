@@ -12,6 +12,7 @@ and the Flutter guide for
 -->
 
 [![Build](https://github.com/zxbase/zxbase_crypto/actions/workflows/build.yml/badge.svg)](https://github.com/zxbase/zxbase_crypto/actions/workflows/build.yml)
+[![codecov](https://codecov.io/gh/zxbase/zxbase_crypto/branch/main/graph/badge.svg?token=5GEZHD3E6W)](https://codecov.io/gh/zxbase/zxbase_crypto)
 [![Dependencies](https://github.com/zxbase/zxbase_crypto/actions/workflows/dependencies.yml/badge.svg)](https://github.com/zxbase/zxbase_crypto/actions/workflows/dependencies.yml)
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
@@ -19,7 +20,10 @@ Zxbase crypto helpers.
 
 ## Features
 
-* Public key cryptography.
+* Public key cryptography (Ed25519):
+  * Generation.
+  * Serialization / deserialization.
+  * Signing and verification.
 
 ## Getting started
 In _pubspec.yaml_:
