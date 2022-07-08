@@ -11,6 +11,7 @@ and the Flutter guide for
 [developing packages and plugins](https://flutter.dev/developing-packages). 
 -->
 
+[![Build](https://github.com/zxbase/zxbase_crypto/actions/workflows/build.yml/badge.svg)](https://github.com/zxbase/zxbase_crypto/actions/workflows/build.yml)
 [![Dependencies](https://github.com/zxbase/zxbase_crypto/actions/workflows/dependencies.yml/badge.svg)](https://github.com/zxbase/zxbase_crypto/actions/workflows/dependencies.yml)
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
