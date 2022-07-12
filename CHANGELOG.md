@@ -1,3 +1,18 @@
-## 0.0.1
+## 1.2.0
 
-* TODO: Describe initial release.
+* Symmetric key cryptography:
+  * AES GCM 256:
+    * Synchronous encryption.
+    * Synchronous decryption.
+
+## 1.1.0
+
+* Random bytes generator.* Random bytes generation:
+  * Generate a specified number of cryptographically secure bytes.
+
+## 1.0.0
+
+* Public key cryptography (Ed25519):
+  * Key pair generation.
+  * Keys serialization / deserialization.
+  * Message signing and verification.

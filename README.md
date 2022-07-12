@@ -28,7 +28,7 @@ Zxbase crypto helpers.
 * Random bytes generation:
   * Generate a specified number of cryptographically secure bytes.
 
-* Symmetric key cryptogrpahy:
+* Symmetric key cryptography:
   * AES GCM 256:
     * Synchronous encryption.
     * Synchronous decryption.
