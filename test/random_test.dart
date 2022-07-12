@@ -17,8 +17,8 @@ import 'package:test/test.dart';
 
 void main() {
   test('Generate random numbers', () {
-    var n1 = generateRandomBytes(32);
-    var n2 = generateRandomBytes(32);
+    final n1 = generateRandomBytes(32);
+    final n2 = generateRandomBytes(32);
 
     expect(n1.length, 32);
     expect(n2.length, 32);
