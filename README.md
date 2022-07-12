@@ -21,9 +21,17 @@ Zxbase crypto helpers.
 ## Features
 
 * Public key cryptography (Ed25519):
-  * Generation.
-  * Serialization / deserialization.
-  * Signing and verification.
+  * Key pair generation.
+  * Keys serialization / deserialization.
+  * Message signing and verification.
+
+* Random bytes generation:
+  * Generate a specified number of cryptographically secure bytes.
+
+* Symmetric key cryptogrpahy:
+  * AES GCM 256:
+    * Synchronous encryption.
+    * Synchronous decryption.
 
 ## Getting started
 In _pubspec.yaml_:
@@ -36,3 +44,5 @@ dependencies:
 
 Check examples in test files:
 * test/pk_crypto_test.dart
+* test/random_test.dart
+* test/sk_crypto_test.dart
