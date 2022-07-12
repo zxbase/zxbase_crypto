@@ -18,10 +18,9 @@
 ///   * Signing and verification.
 
 import 'dart:convert';
-import 'dart:typed_data';
 import 'package:cryptography/cryptography.dart';
 
-Ed25519 _algorithm = Ed25519();
+final _algorithm = Ed25519();
 
 void _checkEd25519Jwk(Map<String, dynamic> json) {
   if (!(json['crv'] == 'Ed25519' && json['kty'] == 'OKP')) {
@@ -56,38 +55,38 @@ Map<String, dynamic> publicKeyToJwk(SimplePublicKey publicKey) {
 
 SimplePublicKey jwkToPublicKey(Map<String, dynamic> json) {
   _checkEd25519Jwk(json);
-  String strKey = _padBase64(json['x']);
-  Uint8List binaryKey = base64Url.decode(strKey);
+  final strKey = _padBase64(json['x']);
+  final binaryKey = base64Url.decode(strKey);
   return SimplePublicKey(binaryKey, type: KeyPairType.ed25519);
 }
 
 Future<Map<String, dynamic>> keyPairToJwk(SimpleKeyPair keyPair) async {
-  List<int> bytes = await keyPair.extractPrivateKeyBytes();
+  final bytes = await keyPair.extractPrivateKeyBytes();
   return {'kty': 'OKP', 'crv': 'Ed25519', 'x': base64Url.encode(bytes)};
 }
 
 Future<SimpleKeyPair> jwkToKeyPair(Map<String, dynamic> json) async {
   _checkEd25519Jwk(json);
-  String strKey = _padBase64(json['x']);
-  Uint8List binaryKey = base64Url.decode(strKey);
+  final strKey = _padBase64(json['x']);
+  final binaryKey = base64Url.decode(strKey);
   return await _algorithm.newKeyPairFromSeed(binaryKey);
 }
 
 /// Signing and verification.
 
 Future<String> sign(String msg, SimpleKeyPair keyPair) async {
-  Signature sig = await _algorithm.sign(utf8.encode(msg), keyPair: keyPair);
+  final sig = await _algorithm.sign(utf8.encode(msg), keyPair: keyPair);
   return base64Url.encode(sig.bytes);
 }
 
 Future<bool> verifySignatureWithPublicKey(
     String msg, String sig, SimplePublicKey publicKey) async {
-  Signature signature = Signature(base64Url.decode(sig), publicKey: publicKey);
+  final signature = Signature(base64Url.decode(sig), publicKey: publicKey);
   return await _algorithm.verify(utf8.encode(msg), signature: signature);
 }
 
 Future<bool> verifySignature(
     String msg, String sig, SimpleKeyPair keyPair) async {
-  SimplePublicKey pubKey = await keyPair.extractPublicKey();
+  final pubKey = await keyPair.extractPublicKey();
   return await verifySignatureWithPublicKey(msg, sig, pubKey);
 }

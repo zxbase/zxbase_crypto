@@ -18,8 +18,8 @@ import 'dart:typed_data';
 import 'dart:math';
 
 Uint8List generateRandomBytes(int length) {
-  Uint8List buf = Uint8List(length);
-  Random generator = Random.secure();
+  final buf = Uint8List(length);
+  final generator = Random.secure();
 
   for (int i = 0; i < length; i++) {
     buf[i] = generator.nextInt(256);
