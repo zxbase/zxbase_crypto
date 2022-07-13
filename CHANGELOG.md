@@ -1,3 +1,10 @@
+## 2.0.0
+
+* Password helpers:
+  * Derivation of key with Argon2.
+  * Password generation.
+  * Password checks.
+
 ## 1.2.0
 
 * Symmetric key cryptography:
@@ -7,7 +14,7 @@
 
 ## 1.1.0
 
-* Random bytes generator.* Random bytes generation:
+* Random bytes generation:
   * Generate a specified number of cryptographically secure bytes.
 
 ## 1.0.0

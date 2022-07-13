@@ -33,11 +33,16 @@ Zxbase crypto helpers.
     * Synchronous encryption.
     * Synchronous decryption.
 
+* Password helpers:
+  * Derivation of key with Argon2.
+  * Password generation.
+  * Password checks.
+
 ## Getting started
 In _pubspec.yaml_:
 ```yaml
 dependencies:
-  zxbase_crypto: ^1.0.0
+  zxbase_crypto: ^2.0.0
 ```
 
 ## Usage
