@@ -1,7 +1,7 @@
 ## 2.0.0
 
 * Password helpers:
-  * Derivation of key with Argon2.
+  * Derivation of a key with Argon2.
   * Password generation.
   * Password checks.
 
