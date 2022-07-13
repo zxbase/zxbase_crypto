@@ -38,6 +38,9 @@ Zxbase crypto helpers.
   * Password generation.
   * Password checks.
 
+* Hash:
+  * SHA3 256 hash.
+
 ## Getting started
 In _pubspec.yaml_:
 ```yaml

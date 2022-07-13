@@ -1,3 +1,8 @@
+## 2.1.0
+
+* Hash:
+  * SHA3 256 hash.
+
 ## 2.0.0
 
 * Password helpers:
