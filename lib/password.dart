@@ -66,7 +66,7 @@ Uint8List derive256BitsKey({required String pwd, required Uint8List salt}) {
     ..init(Argon2Parameters(
       Argon2Parameters.ARGON2_i,
       salt,
-      desiredKeyLength: keyBytesSize,
+      desiredKeyLength: SKCrypto.keyByteSize,
       version: Argon2Parameters.ARGON2_VERSION_13,
       iterations: 2,
       memoryPowerOf2: 16,

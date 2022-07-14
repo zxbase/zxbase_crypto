@@ -140,24 +140,24 @@ void main() {
       186
     ]);
 
-    final dec = decryptSync(iv: iv, buffer: enc, key: key);
+    final dec = SKCrypto.decryptSync(iv: iv, buffer: enc, key: key);
     expect(clear, equals(dec));
   });
 
   test('Generate 256 bits keys', () {
-    final key1 = generate256BitsKey();
-    final key2 = generate256BitsKey();
+    final key1 = SKCrypto.generate256BitKey();
+    final key2 = SKCrypto.generate256BitKey();
 
-    expect(key1.length, keyBytesSize);
-    expect(key2.length, keyBytesSize);
+    expect(key1.length, SKCrypto.keyByteSize);
+    expect(key2.length, SKCrypto.keyByteSize);
     expect(key1, isNot(key2));
   });
 
   test('Encrypt and decrypt AES GCM 256', () {
-    final key = generate256BitsKey();
+    final key = SKCrypto.generate256BitKey();
 
-    IvData enc = encryptSync(buffer: clear, key: key);
-    final dec = decryptSync(iv: enc.iv, buffer: enc.data, key: key);
+    IVData enc = SKCrypto.encryptSync(buffer: clear, key: key);
+    final dec = SKCrypto.decryptSync(iv: enc.iv, buffer: enc.data, key: key);
 
     expect(dec, equals(clear));
   });

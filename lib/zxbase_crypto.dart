@@ -13,6 +13,7 @@
 // limitations under the License.
 
 export 'hash.dart';
+export 'iv_data.dart';
 export 'password.dart';
 export 'pk_crypto.dart';
 export 'random.dart';

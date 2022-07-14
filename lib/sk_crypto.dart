@@ -17,42 +17,41 @@
 
 import 'dart:typed_data';
 import 'package:pointycastle/export.dart';
+import 'package:zxbase_crypto/iv_data.dart';
 import 'package:zxbase_crypto/random.dart';
 
-const ivBytesSize = 12;
-const macSize = 128;
-const keyBytesSize = 32;
+class SKCrypto {
+  static const ivByteSize = 12;
+  static const keyByteSize = 32;
+  static const macBitSize = 128;
 
-class IvData {
-  IvData({required this.iv, required this.data})
-      : length = iv.length + data.length;
+  static IVData encryptSync(
+      {required Uint8List buffer, required Uint8List key}) {
+    final iv = generateRandomBytes(ivByteSize);
 
-  Uint8List iv;
-  Uint8List data;
-  int length = 0;
-}
+    final aesCipher = GCMBlockCipher(AESEngine())
+      ..init(
+          true,
+          AEADParameters(
+              KeyParameter(key), macBitSize, iv, Uint8List.fromList([])));
 
-IvData encryptSync({required Uint8List buffer, required Uint8List key}) {
-  final iv = generateRandomBytes(ivBytesSize);
+    return IVData(iv: iv, data: aesCipher.process(buffer));
+  }
 
-  final aesCipher = GCMBlockCipher(AESEngine())
-    ..init(true,
-        AEADParameters(KeyParameter(key), macSize, iv, Uint8List.fromList([])));
+  static Uint8List decryptSync(
+      {required Uint8List iv,
+      required Uint8List buffer,
+      required Uint8List key}) {
+    final aesCipher = GCMBlockCipher(AESEngine())
+      ..init(
+          false,
+          AEADParameters(
+              KeyParameter(key), macBitSize, iv, Uint8List.fromList([])));
 
-  return IvData(iv: iv, data: aesCipher.process(buffer));
-}
+    return aesCipher.process(buffer);
+  }
 
-Uint8List decryptSync(
-    {required Uint8List iv,
-    required Uint8List buffer,
-    required Uint8List key}) {
-  final aesCipher = GCMBlockCipher(AESEngine())
-    ..init(false,
-        AEADParameters(KeyParameter(key), macSize, iv, Uint8List.fromList([])));
-
-  return aesCipher.process(buffer);
-}
-
-Uint8List generate256BitsKey() {
-  return generateRandomBytes(keyBytesSize);
+  static Uint8List generate256BitKey() {
+    return generateRandomBytes(keyByteSize);
+  }
 }

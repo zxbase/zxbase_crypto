@@ -31,7 +31,7 @@ void main() {
     final pwd = 'password';
     final derivedPwd = derive256BitsKey(pwd: pwd, salt: salt);
 
-    expect(derivedPwd.length, equals(keyBytesSize));
+    expect(derivedPwd.length, equals(SKCrypto.keyByteSize));
   });
 
   test('Derive same keys with the same password and the same salt', () {
@@ -68,8 +68,8 @@ void main() {
     final derivedPwd1 = derive256BitsKey(pwd: pwd, salt: salt1);
     final derivedPwd2 = derive256BitsKey(pwd: pwd2, salt: salt2);
 
-    expect(derivedPwd1.length, equals(keyBytesSize));
-    expect(derivedPwd2.length, equals(keyBytesSize));
+    expect(derivedPwd1.length, equals(SKCrypto.keyByteSize));
+    expect(derivedPwd2.length, equals(SKCrypto.keyByteSize));
 
     expect(derivedPwd1, isNot(derivedPwd2));
   });
