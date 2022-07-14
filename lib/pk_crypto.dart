@@ -20,73 +20,76 @@
 import 'dart:convert';
 import 'package:cryptography/cryptography.dart';
 
-final _algorithm = Ed25519();
+class PKCrypto {
+  static final _algorithm = Ed25519();
 
-void _checkEd25519Jwk(Map<String, dynamic> json) {
-  if (!(json['crv'] == 'Ed25519' && json['kty'] == 'OKP')) {
-    throw FormatException('Key type is not supported $json');
+  static void _checkEd25519Jwk(Map<String, dynamic> json) {
+    if (!(json['crv'] == 'Ed25519' && json['kty'] == 'OKP')) {
+      throw FormatException('Key type is not supported $json');
+    }
   }
-}
 
-String _padBase64(String str) {
-  if (str.length % 4 > 0) {
-    int pad = str.length % 4;
-    str += '=' * (4 - pad);
+  static String _padBase64(String str) {
+    if (str.length % 4 > 0) {
+      int pad = str.length % 4;
+      str += '=' * (4 - pad);
+    }
+    return str;
   }
-  return str;
-}
 
-/// Generation.
+  /// Generation.
 
-Future<SimpleKeyPair> generateKeyPair() async {
-  return await _algorithm.newKeyPair();
-}
+  static Future<SimpleKeyPair> generateKeyPair() async {
+    return await _algorithm.newKeyPair();
+  }
 
-/// Serialization / deserialization.
+  /// Serialization / deserialization.
 
-Map<String, dynamic> publicKeyToJwk(SimplePublicKey publicKey) {
-  // Ed25519 raw key is 32 bits.
-  return {
-    'kty': 'OKP',
-    'crv': 'Ed25519',
-    'x': base64Url.encode(publicKey.bytes)
-  };
-}
+  static Map<String, dynamic> publicKeyToJwk(SimplePublicKey publicKey) {
+    // Ed25519 raw key is 32 bits.
+    return {
+      'kty': 'OKP',
+      'crv': 'Ed25519',
+      'x': base64Url.encode(publicKey.bytes)
+    };
+  }
 
-SimplePublicKey jwkToPublicKey(Map<String, dynamic> json) {
-  _checkEd25519Jwk(json);
-  final strKey = _padBase64(json['x']);
-  final binaryKey = base64Url.decode(strKey);
-  return SimplePublicKey(binaryKey, type: KeyPairType.ed25519);
-}
+  static SimplePublicKey jwkToPublicKey(Map<String, dynamic> json) {
+    _checkEd25519Jwk(json);
+    final strKey = _padBase64(json['x']);
+    final binaryKey = base64Url.decode(strKey);
+    return SimplePublicKey(binaryKey, type: KeyPairType.ed25519);
+  }
 
-Future<Map<String, dynamic>> keyPairToJwk(SimpleKeyPair keyPair) async {
-  final bytes = await keyPair.extractPrivateKeyBytes();
-  return {'kty': 'OKP', 'crv': 'Ed25519', 'x': base64Url.encode(bytes)};
-}
+  static Future<Map<String, dynamic>> keyPairToJwk(
+      SimpleKeyPair keyPair) async {
+    final bytes = await keyPair.extractPrivateKeyBytes();
+    return {'kty': 'OKP', 'crv': 'Ed25519', 'x': base64Url.encode(bytes)};
+  }
 
-Future<SimpleKeyPair> jwkToKeyPair(Map<String, dynamic> json) async {
-  _checkEd25519Jwk(json);
-  final strKey = _padBase64(json['x']);
-  final binaryKey = base64Url.decode(strKey);
-  return await _algorithm.newKeyPairFromSeed(binaryKey);
-}
+  static Future<SimpleKeyPair> jwkToKeyPair(Map<String, dynamic> json) async {
+    _checkEd25519Jwk(json);
+    final strKey = _padBase64(json['x']);
+    final binaryKey = base64Url.decode(strKey);
+    return await _algorithm.newKeyPairFromSeed(binaryKey);
+  }
 
-/// Signing and verification.
+  /// Signing and verification.
 
-Future<String> sign(String msg, SimpleKeyPair keyPair) async {
-  final sig = await _algorithm.sign(utf8.encode(msg), keyPair: keyPair);
-  return base64Url.encode(sig.bytes);
-}
+  static Future<String> sign(String msg, SimpleKeyPair keyPair) async {
+    final sig = await _algorithm.sign(utf8.encode(msg), keyPair: keyPair);
+    return base64Url.encode(sig.bytes);
+  }
 
-Future<bool> verifySignatureWithPublicKey(
-    String msg, String sig, SimplePublicKey publicKey) async {
-  final signature = Signature(base64Url.decode(sig), publicKey: publicKey);
-  return await _algorithm.verify(utf8.encode(msg), signature: signature);
-}
+  static Future<bool> verifySignatureWithPublicKey(
+      String msg, String sig, SimplePublicKey publicKey) async {
+    final signature = Signature(base64Url.decode(sig), publicKey: publicKey);
+    return await _algorithm.verify(utf8.encode(msg), signature: signature);
+  }
 
-Future<bool> verifySignature(
-    String msg, String sig, SimpleKeyPair keyPair) async {
-  final pubKey = await keyPair.extractPublicKey();
-  return await verifySignatureWithPublicKey(msg, sig, pubKey);
+  static Future<bool> verifySignature(
+      String msg, String sig, SimpleKeyPair keyPair) async {
+    final pubKey = await keyPair.extractPublicKey();
+    return await verifySignatureWithPublicKey(msg, sig, pubKey);
+  }
 }

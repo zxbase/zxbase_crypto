@@ -17,13 +17,13 @@ import 'package:test/test.dart';
 
 void main() {
   test('Check jwk format', () async {
-    expect(
-        () => jwkToPublicKey({'kty': 'OKT'}), throwsA(isA<FormatException>()));
+    expect(() => PKCrypto.jwkToPublicKey({'kty': 'OKT'}),
+        throwsA(isA<FormatException>()));
   });
 
   test('Generate 2 different Ed25519 keys', () async {
-    final keyPair1 = await generateKeyPair();
-    final keyPair2 = await generateKeyPair();
+    final keyPair1 = await PKCrypto.generateKeyPair();
+    final keyPair2 = await PKCrypto.generateKeyPair();
 
     expect(keyPair1.extractPrivateKeyBytes(),
         isNot(keyPair2.extractPrivateKeyBytes()));
@@ -32,14 +32,14 @@ void main() {
 
   test('Serialize and deserialize public key', () async {
     // generate key pair, extact public key, serialize, deserialize
-    final keyPair = await generateKeyPair();
+    final keyPair = await PKCrypto.generateKeyPair();
     final publicKey = await keyPair.extractPublicKey();
 
-    final json = publicKeyToJwk(publicKey);
+    final json = PKCrypto.publicKeyToJwk(publicKey);
     expect(json['kty'], equals('OKP'));
     expect(json['crv'], equals('Ed25519'));
 
-    final deserializedPublicKey = jwkToPublicKey(json);
+    final deserializedPublicKey = PKCrypto.jwkToPublicKey(json);
     expect(deserializedPublicKey.bytes, isNot(null));
   });
 
@@ -50,8 +50,8 @@ void main() {
       // padding is required
       'x': 'km6x_mSpVZA0hOuRtun3RoMXRhqfHesRuoBfZbZ2J7E'
     };
-    final publicKey = jwkToPublicKey(json);
-    final serializedPublicKey = publicKeyToJwk(publicKey);
+    final publicKey = PKCrypto.jwkToPublicKey(json);
+    final serializedPublicKey = PKCrypto.publicKeyToJwk(publicKey);
     expect(serializedPublicKey['x'],
         equals('km6x_mSpVZA0hOuRtun3RoMXRhqfHesRuoBfZbZ2J7E='));
   });
@@ -59,19 +59,20 @@ void main() {
   test('Serialize and deserialize key pair', () async {
     // generate key pair, sign, serialize, deserialize, verify
     final msg = 'xxx';
-    final keyPair = await generateKeyPair();
-    final sig = await sign(msg, keyPair);
+    final keyPair = await PKCrypto.generateKeyPair();
+    final sig = await PKCrypto.sign(msg, keyPair);
 
-    final json = await keyPairToJwk(keyPair);
-    final deserializedKeyPair = await jwkToKeyPair(json);
-    expect(await verifySignature(msg, sig, deserializedKeyPair), equals(true));
+    final json = await PKCrypto.keyPairToJwk(keyPair);
+    final deserializedKeyPair = await PKCrypto.jwkToKeyPair(json);
+    expect(await PKCrypto.verifySignature(msg, sig, deserializedKeyPair),
+        equals(true));
   });
 
   test('Sign and verify message', () async {
-    final keyPair = await generateKeyPair();
+    final keyPair = await PKCrypto.generateKeyPair();
     final msg = 'xxx';
-    final sig = await sign(msg, keyPair);
-    final rv = await verifySignature(msg, sig, keyPair);
+    final sig = await PKCrypto.sign(msg, keyPair);
+    final rv = await PKCrypto.verifySignature(msg, sig, keyPair);
     expect(rv, equals(true));
   });
 }
