@@ -18,7 +18,7 @@ import 'package:zxbase_crypto/zxbase_crypto.dart';
 void main() {
   test('SHA3 256 hash', () {
     String msg = 'balblabla';
-    String dig = hash(msg);
+    String dig = Hash.hash3_256(msg);
     expect(
         dig,
         equals(
@@ -27,7 +27,7 @@ void main() {
 
   test('SHA3 256 hash hello world', () {
     String msg = 'Hello World';
-    String dig = hash(msg);
+    String dig = Hash.hash3_256(msg);
     expect(
         dig,
         equals(

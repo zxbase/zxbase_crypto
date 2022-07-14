@@ -19,7 +19,9 @@ import 'dart:typed_data';
 import 'package:convert/convert.dart';
 import 'package:pointycastle/export.dart';
 
-String hash(String msg) {
-  final digest = Digest('SHA3-256');
-  return hex.encode(digest.process(Uint8List.fromList(utf8.encode(msg))));
+class Hash {
+  static String hash3_256(String msg) {
+    final digest = Digest('SHA3-256');
+    return hex.encode(digest.process(Uint8List.fromList(utf8.encode(msg))));
+  }
 }
