@@ -22,8 +22,8 @@ void main() {
     final salt1 = generateSalt();
     final salt2 = generateSalt();
 
-    expect(salt1.length, saltSize);
-    expect(salt2.length, saltSize);
+    expect(salt1.length, saltBytesSize);
+    expect(salt2.length, saltBytesSize);
     expect(salt1, isNot(salt2));
   });
 

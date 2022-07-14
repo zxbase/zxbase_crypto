@@ -24,7 +24,7 @@ import 'package:pointycastle/export.dart';
 import 'package:zxbase_crypto/random.dart';
 import 'package:zxbase_crypto/sk_crypto.dart';
 
-const saltSize = 16;
+const saltBytesSize = 16;
 
 class PasswordComponent {
   static const specialChars = '#?!@\$%^&*-';
@@ -55,7 +55,7 @@ class PasswordCheck {
 
 /// Generate 128-bits salt.
 Uint8List generateSalt() {
-  return generateRandomBytes(saltSize);
+  return generateRandomBytes(saltBytesSize);
 }
 
 /// Derive 256-bit key from the password string and 128-bit salt using Argon2i.
