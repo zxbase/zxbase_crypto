@@ -12,16 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:zxbase_crypto/zxbase_crypto.dart';
-import 'package:test/test.dart';
-
-void main() {
-  test('Generate random numbers', () {
-    final n1 = generateRandomBytes(32);
-    final n2 = generateRandomBytes(32);
-
-    expect(n1.length, 32);
-    expect(n2.length, 32);
-    expect(n1, isNot(n2));
-  });
-}
+export 'hash.dart';
+export 'password.dart';
+export 'pk_crypto.dart';
+export 'random.dart';
+export 'sk_crypto.dart';

@@ -13,7 +13,7 @@
 // limitations under the License.
 
 import 'package:test/test.dart';
-import 'package:zxbase_crypto/hash.dart';
+import 'package:zxbase_crypto/zxbase_crypto.dart';
 
 void main() {
   test('SHA3 256 hash', () {
