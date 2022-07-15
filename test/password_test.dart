@@ -18,55 +18,55 @@ import 'package:test/test.dart';
 
 void main() {
   test('Generate salts', () {
-    final salt1 = generateSalt();
-    final salt2 = generateSalt();
+    final salt1 = Password.generateSalt();
+    final salt2 = Password.generateSalt();
 
-    expect(salt1.length, saltBytesSize);
-    expect(salt2.length, saltBytesSize);
+    expect(salt1.length, Password.saltByteSize);
+    expect(salt2.length, Password.saltByteSize);
     expect(salt1, isNot(salt2));
   });
 
   test('Derived key length', () {
-    final salt = generateSalt();
+    final salt = Password.generateSalt();
     final pwd = 'password';
-    final derivedPwd = derive256BitsKey(pwd: pwd, salt: salt);
+    final derivedPwd = Password.derive256BitKey(pwd: pwd, salt: salt);
 
     expect(derivedPwd.length, equals(SKCrypto.keyByteSize));
   });
 
   test('Derive same keys with the same password and the same salt', () {
-    final salt = generateSalt();
+    final salt = Password.generateSalt();
     final pwd = 'password1';
     final pwd2 = 'password1';
 
-    final derivedPwd1 = derive256BitsKey(pwd: pwd, salt: salt);
-    final derivedPwd2 = derive256BitsKey(pwd: pwd2, salt: salt);
+    final derivedPwd1 = Password.derive256BitKey(pwd: pwd, salt: salt);
+    final derivedPwd2 = Password.derive256BitKey(pwd: pwd2, salt: salt);
 
     expect(derivedPwd1, equals(derivedPwd2));
   });
 
   test('Derive different keys with the same password but different salts', () {
-    final salt1 = generateSalt();
-    final salt2 = generateSalt();
+    final salt1 = Password.generateSalt();
+    final salt2 = Password.generateSalt();
 
     final pwd = 'password';
     final pwd2 = 'password';
 
-    final derivedPwd1 = derive256BitsKey(pwd: pwd, salt: salt1);
-    final derivedPwd2 = derive256BitsKey(pwd: pwd2, salt: salt2);
+    final derivedPwd1 = Password.derive256BitKey(pwd: pwd, salt: salt1);
+    final derivedPwd2 = Password.derive256BitKey(pwd: pwd2, salt: salt2);
 
     expect(derivedPwd1, isNot(derivedPwd2));
   });
 
   test('Derive different keys with different passwords', () {
-    final salt1 = generateSalt();
-    final salt2 = generateSalt();
+    final salt1 = Password.generateSalt();
+    final salt2 = Password.generateSalt();
 
     final pwd = 'password';
     final pwd2 = 'password1';
 
-    final derivedPwd1 = derive256BitsKey(pwd: pwd, salt: salt1);
-    final derivedPwd2 = derive256BitsKey(pwd: pwd2, salt: salt2);
+    final derivedPwd1 = Password.derive256BitKey(pwd: pwd, salt: salt1);
+    final derivedPwd2 = Password.derive256BitKey(pwd: pwd2, salt: salt2);
 
     expect(derivedPwd1.length, equals(SKCrypto.keyByteSize));
     expect(derivedPwd2.length, equals(SKCrypto.keyByteSize));
@@ -79,7 +79,7 @@ void main() {
         [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]);
     final pwd = 'password';
 
-    final derivedPwd = derive256BitsKey(pwd: pwd, salt: salt);
+    final derivedPwd = Password.derive256BitKey(pwd: pwd, salt: salt);
 
     final expectedPwd = Uint8List.fromList([
       10,
@@ -120,72 +120,73 @@ void main() {
   });
 
   test('Generate password with all components', () async {
-    final pwd = generatePassword();
-    expect(PasswordCheck.okRE.hasMatch(pwd), equals(true));
+    final pwd = Password.generatePassword();
+    expect(Password.okRE.hasMatch(pwd), equals(true));
   });
 
   test('Generate password no lower case', () async {
-    final pwd = generatePassword(length: 11, lowerCase: false);
+    final pwd = Password.generatePassword(length: 11, lowerCase: false);
     expect(pwd.length, equals(11));
-    expect(PasswordCheck.okRE.hasMatch(pwd), equals(false));
-    expect(PasswordCheck.numberSpecialRE.hasMatch(pwd), equals(true));
-    expect(PasswordCheck.upperLowerCaseRE.hasMatch(pwd), equals(false));
+    expect(Password.okRE.hasMatch(pwd), equals(false));
+    expect(Password.numberSpecialRE.hasMatch(pwd), equals(true));
+    expect(Password.upperLowerCaseRE.hasMatch(pwd), equals(false));
   });
 
   test('Generate password no upper case', () async {
-    final pwd = generatePassword(length: 11, upperCase: false);
+    final pwd = Password.generatePassword(length: 11, upperCase: false);
     expect(pwd.length, equals(11));
-    expect(PasswordCheck.okRE.hasMatch(pwd), equals(false));
-    expect(PasswordCheck.numberSpecialRE.hasMatch(pwd), equals(true));
-    expect(PasswordCheck.upperLowerCaseRE.hasMatch(pwd), equals(false));
+    expect(Password.okRE.hasMatch(pwd), equals(false));
+    expect(Password.numberSpecialRE.hasMatch(pwd), equals(true));
+    expect(Password.upperLowerCaseRE.hasMatch(pwd), equals(false));
   });
 
   test('Generate password no numbers', () async {
-    final pwd = generatePassword(length: 11, numbers: false);
+    final pwd = Password.generatePassword(length: 11, numbers: false);
     expect(pwd.length, equals(11));
-    expect(PasswordCheck.okRE.hasMatch(pwd), equals(false));
-    expect(PasswordCheck.numberSpecialRE.hasMatch(pwd), equals(false));
-    expect(PasswordCheck.upperLowerCaseRE.hasMatch(pwd), equals(true));
+    expect(Password.okRE.hasMatch(pwd), equals(false));
+    expect(Password.numberSpecialRE.hasMatch(pwd), equals(false));
+    expect(Password.upperLowerCaseRE.hasMatch(pwd), equals(true));
   });
 
   test('Generate password no special characters', () async {
-    final pwd = generatePassword(special: false);
+    final pwd = Password.generatePassword(special: false);
     expect(pwd.length, equals(10));
-    expect(PasswordCheck.okRE.hasMatch(pwd), equals(false));
-    expect(PasswordCheck.numberSpecialRE.hasMatch(pwd), equals(false));
-    expect(PasswordCheck.upperLowerCaseRE.hasMatch(pwd), equals(true));
+    expect(Password.okRE.hasMatch(pwd), equals(false));
+    expect(Password.numberSpecialRE.hasMatch(pwd), equals(false));
+    expect(Password.upperLowerCaseRE.hasMatch(pwd), equals(true));
   });
 
   test('Try to generate password of insufficient length', () async {
-    expect(() => generatePassword(length: 7), throwsA(isA<Exception>()));
+    expect(
+        () => Password.generatePassword(length: 7), throwsA(isA<Exception>()));
   });
 
   test('Validate password 1', () async {
     String pass = 'Gubeer1^pwd';
-    expect(PasswordCheck.upperLowerCaseRE.hasMatch(pass), equals(true));
-    expect(PasswordCheck.numberSpecialRE.hasMatch(pass), equals(true));
-    expect(PasswordCheck.okRE.hasMatch(pass), equals(true));
+    expect(Password.upperLowerCaseRE.hasMatch(pass), equals(true));
+    expect(Password.numberSpecialRE.hasMatch(pass), equals(true));
+    expect(Password.okRE.hasMatch(pass), equals(true));
   });
 
   test('Validate password 2', () async {
     String pass = '...^pwd';
-    expect(PasswordCheck.upperLowerCaseRE.hasMatch(pass), equals(false));
-    expect(PasswordCheck.numberSpecialRE.hasMatch(pass), equals(false));
-    expect(PasswordCheck.okRE.hasMatch(pass), equals(false));
+    expect(Password.upperLowerCaseRE.hasMatch(pass), equals(false));
+    expect(Password.numberSpecialRE.hasMatch(pass), equals(false));
+    expect(Password.okRE.hasMatch(pass), equals(false));
   });
 
   test('Validate password 3', () async {
     String pass = 'J6.IgR&^H';
-    expect(PasswordCheck.upperLowerCaseRE.hasMatch(pass), equals(true));
-    expect(PasswordCheck.numberSpecialRE.hasMatch(pass), equals(true));
-    expect(PasswordCheck.okRE.hasMatch(pass), equals(true));
+    expect(Password.upperLowerCaseRE.hasMatch(pass), equals(true));
+    expect(Password.numberSpecialRE.hasMatch(pass), equals(true));
+    expect(Password.okRE.hasMatch(pass), equals(true));
   });
 
   test('Validate password 4', () async {
     // brackets are not special characters
     String pass = 'U3GJo(frofR';
-    expect(PasswordCheck.upperLowerCaseRE.hasMatch(pass), equals(true));
-    expect(PasswordCheck.numberSpecialRE.hasMatch(pass), equals(false));
-    expect(PasswordCheck.okRE.hasMatch(pass), equals(false));
+    expect(Password.upperLowerCaseRE.hasMatch(pass), equals(true));
+    expect(Password.numberSpecialRE.hasMatch(pass), equals(false));
+    expect(Password.okRE.hasMatch(pass), equals(false));
   });
 }

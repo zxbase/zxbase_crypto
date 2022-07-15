@@ -24,110 +24,106 @@ import 'package:pointycastle/export.dart';
 import 'package:zxbase_crypto/random.dart';
 import 'package:zxbase_crypto/sk_crypto.dart';
 
-const saltBytesSize = 16;
+class Password {
+  static const saltByteSize = 16;
 
-class PasswordComponent {
+  /// Password components.
   static const specialChars = '#?!@\$%^&*-';
   static const lowerCase = 'abcdefghijklmnopqrstuvwxyz';
   static const upperCase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
   static const numbers = '0123456789';
   static const minLength = 8;
 
-  static Uint8List specialCharsBuf =
-      Uint8List.fromList(utf8.encode(specialChars));
-  static Uint8List lowerCaseBuf = Uint8List.fromList(utf8.encode(lowerCase));
-  static Uint8List upperCaseBuf = Uint8List.fromList(utf8.encode(upperCase));
-  static Uint8List numbersBuf = Uint8List.fromList(utf8.encode(numbers));
-}
+  static final specialCharsBuf = Uint8List.fromList(utf8.encode(specialChars));
+  static final lowerCaseBuf = Uint8List.fromList(utf8.encode(lowerCase));
+  static final upperCaseBuf = Uint8List.fromList(utf8.encode(upperCase));
+  static final numbersBuf = Uint8List.fromList(utf8.encode(numbers));
 
-/// Password checks:
-///   * upper and lower case characters present
-///   * number and special character present
-///   * password contains upper and lower case characters,
-///     numbers and special character present,
-///     length is between 8 and 32,
-class PasswordCheck {
+  /// Password checks:
+  ///   * upper and lower case characters present
+  ///   * number and special character present
+  ///   * password contains upper and lower case characters,
+  ///     numbers and special character present,
+  ///     length is between 8 and 32,
   static final upperLowerCaseRE = RegExp(r'^(?=.*[a-z])(?=.*[A-Z])');
   static final numberSpecialRE = RegExp(r'^(?=.*\d)(?=.*[#?!@$%^&*-])');
   static final okRE =
       RegExp(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#?!@$%^&*-]).{8,32}$');
-}
 
-/// Generate 128-bits salt.
-Uint8List generateSalt() {
-  return generateRandomBytes(saltBytesSize);
-}
-
-/// Derive 256-bit key from the password string and 128-bit salt using Argon2i.
-Uint8List derive256BitsKey({required String pwd, required Uint8List salt}) {
-  final passwordBytes = Uint8List.fromList(utf8.encode(pwd));
-
-  final generator = Argon2BytesGenerator()
-    ..init(Argon2Parameters(
-      Argon2Parameters.ARGON2_i,
-      salt,
-      desiredKeyLength: SKCrypto.keyByteSize,
-      version: Argon2Parameters.ARGON2_VERSION_13,
-      iterations: 2,
-      memoryPowerOf2: 16,
-    ));
-
-  return generator.process(passwordBytes);
-}
-
-/// Generate password.
-String generatePassword(
-    {bool lowerCase = true,
-    bool upperCase = true,
-    bool numbers = true,
-    bool special = true,
-    int length = 10}) {
-  if (length < PasswordComponent.minLength) {
-    throw Exception('Insufficient password length $length');
+  /// Generate 128-bit salt.
+  static Uint8List generateSalt() {
+    return generateRandomBytes(saltByteSize);
   }
 
-  final buf = Uint8List(length);
-  List<int> allBuf = [];
+  /// Derive 256-bit key from the password string and 128-bit salt using Argon2i.
+  static Uint8List derive256BitKey(
+      {required String pwd, required Uint8List salt}) {
+    final passwordBytes = Uint8List.fromList(utf8.encode(pwd));
 
-  int randomIndex;
-  int i = 0;
+    final generator = Argon2BytesGenerator()
+      ..init(Argon2Parameters(
+        Argon2Parameters.ARGON2_i,
+        salt,
+        desiredKeyLength: SKCrypto.keyByteSize,
+        version: Argon2Parameters.ARGON2_VERSION_13,
+        iterations: 2,
+        memoryPowerOf2: 16,
+      ));
 
-  if (lowerCase) {
-    randomIndex =
-        Random.secure().nextInt(PasswordComponent.lowerCaseBuf.length);
-    buf[i] = PasswordComponent.lowerCaseBuf[randomIndex];
-    i++;
-    allBuf.addAll(PasswordComponent.lowerCaseBuf);
+    return generator.process(passwordBytes);
   }
 
-  if (upperCase) {
-    randomIndex =
-        Random.secure().nextInt(PasswordComponent.upperCaseBuf.length);
-    buf[i] = PasswordComponent.upperCaseBuf[randomIndex];
-    i++;
-    allBuf.addAll(PasswordComponent.upperCaseBuf);
-  }
+  /// Generate password.
+  static String generatePassword(
+      {bool lowerCase = true,
+      bool upperCase = true,
+      bool numbers = true,
+      bool special = true,
+      int length = 10}) {
+    if (length < Password.minLength) {
+      throw Exception('Insufficient password length $length');
+    }
 
-  if (numbers) {
-    randomIndex = Random.secure().nextInt(PasswordComponent.numbersBuf.length);
-    buf[i] = PasswordComponent.numbersBuf[randomIndex];
-    i++;
-    allBuf.addAll(PasswordComponent.numbersBuf);
-  }
+    final buf = Uint8List(length);
+    List<int> allBuf = [];
 
-  if (special) {
-    randomIndex =
-        Random.secure().nextInt(PasswordComponent.specialCharsBuf.length);
-    buf[i] = PasswordComponent.specialCharsBuf[randomIndex];
-    i++;
-    allBuf.addAll(PasswordComponent.specialCharsBuf);
-  }
+    int randomIndex;
+    int i = 0;
 
-  while (i < length) {
-    randomIndex = Random.secure().nextInt(allBuf.length);
-    buf[i] = allBuf[randomIndex];
-    i++;
-  }
+    if (lowerCase) {
+      randomIndex = Random.secure().nextInt(Password.lowerCaseBuf.length);
+      buf[i] = Password.lowerCaseBuf[randomIndex];
+      i++;
+      allBuf.addAll(Password.lowerCaseBuf);
+    }
 
-  return utf8.decode(buf);
+    if (upperCase) {
+      randomIndex = Random.secure().nextInt(Password.upperCaseBuf.length);
+      buf[i] = Password.upperCaseBuf[randomIndex];
+      i++;
+      allBuf.addAll(Password.upperCaseBuf);
+    }
+
+    if (numbers) {
+      randomIndex = Random.secure().nextInt(Password.numbersBuf.length);
+      buf[i] = Password.numbersBuf[randomIndex];
+      i++;
+      allBuf.addAll(Password.numbersBuf);
+    }
+
+    if (special) {
+      randomIndex = Random.secure().nextInt(Password.specialCharsBuf.length);
+      buf[i] = Password.specialCharsBuf[randomIndex];
+      i++;
+      allBuf.addAll(Password.specialCharsBuf);
+    }
+
+    while (i < length) {
+      randomIndex = Random.secure().nextInt(allBuf.length);
+      buf[i] = allBuf[randomIndex];
+      i++;
+    }
+
+    return utf8.decode(buf);
+  }
 }
