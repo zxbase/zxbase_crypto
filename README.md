@@ -45,12 +45,19 @@ Zxbase crypto helpers.
 In _pubspec.yaml_:
 ```yaml
 dependencies:
-  zxbase_crypto: ^2.0.0
+  zxbase_crypto: ^3.0.0
+```
+
+In your code:
+```
+import 'package:zxbase_crypto/zxbase_crypto.dart';
 ```
 
 ## Usage
 
 Check examples in test files:
-* test/pk_crypto_test.dart
-* test/random_test.dart
-* test/sk_crypto_test.dart
+  * test/hash.dart  
+  * test/password.dart
+  * test/pk_crypto_test.dart
+  * test/random_test.dart
+  * test/sk_crypto_test.dart

@@ -1,3 +1,12 @@
+## 3.0.0
+
+* Namespace:
+  * IV Data.
+  * Symmetric key crypto.
+  * Public key crypto.
+  * Hash.
+  * Password.
+
 ## 2.1.0
 
 * Hash:
