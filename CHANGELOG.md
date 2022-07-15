@@ -1,6 +1,12 @@
+## 3.1.0
+
+* Hashcash:
+  * Challenge.
+  * Verification.
+
 ## 3.0.0
 
-* Namespace:
+* Namespaces:
   * IV Data.
   * Symmetric key crypto.
   * Public key crypto.

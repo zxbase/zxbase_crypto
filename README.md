@@ -1,16 +1,3 @@
-<!-- 
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
-
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages). 
-
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages). 
--->
-
 [![Build](https://github.com/zxbase/zxbase_crypto/actions/workflows/build.yml/badge.svg)](https://github.com/zxbase/zxbase_crypto/actions/workflows/build.yml)
 [![codecov](https://codecov.io/gh/zxbase/zxbase_crypto/branch/main/graph/badge.svg?token=5GEZHD3E6W)](https://codecov.io/gh/zxbase/zxbase_crypto)
 [![Dependencies](https://github.com/zxbase/zxbase_crypto/actions/workflows/dependencies.yml/badge.svg)](https://github.com/zxbase/zxbase_crypto/actions/workflows/dependencies.yml)
@@ -41,6 +28,10 @@ Zxbase crypto helpers.
 * Hash:
   * SHA3 256 hash.
 
+* Hashcash:
+  * Challenge.
+  * Verification.
+
 ## Getting started
 In _pubspec.yaml_:
 ```yaml
@@ -56,8 +47,9 @@ import 'package:zxbase_crypto/zxbase_crypto.dart';
 ## Usage
 
 Check examples in test files:
-  * test/hash.dart  
-  * test/password.dart
+  * test/hash_test.dart  
+  * test/hashcash_test.dart  
+  * test/password_test.dart
   * test/pk_crypto_test.dart
   * test/random_test.dart
   * test/sk_crypto_test.dart
