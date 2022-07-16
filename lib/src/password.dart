@@ -21,8 +21,8 @@ import 'dart:convert';
 import 'dart:math';
 import 'dart:typed_data';
 import 'package:pointycastle/export.dart';
-import 'package:zxbase_crypto/random.dart';
-import 'package:zxbase_crypto/sk_crypto.dart';
+import 'package:zxbase_crypto/src/random.dart';
+import 'package:zxbase_crypto/src/sk_crypto.dart';
 
 class Password {
   static const saltByteSize = 16;

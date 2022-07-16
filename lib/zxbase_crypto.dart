@@ -12,10 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-export 'hash.dart';
-export 'hashcash.dart';
-export 'iv_data.dart';
-export 'password.dart';
-export 'pk_crypto.dart';
-export 'random.dart';
-export 'sk_crypto.dart';
+library zxbase_crypto;
+
+export 'src/hash.dart';
+export 'src/hashcash.dart';
+export 'src/iv_data.dart';
+export 'src/password.dart';
+export 'src/pk_crypto.dart';
+export 'src/random.dart';
+export 'src/sk_crypto.dart';

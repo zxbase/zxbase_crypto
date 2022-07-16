@@ -17,8 +17,8 @@
 
 import 'dart:typed_data';
 import 'package:pointycastle/export.dart';
-import 'package:zxbase_crypto/iv_data.dart';
-import 'package:zxbase_crypto/random.dart';
+import 'package:zxbase_crypto/src/iv_data.dart';
+import 'package:zxbase_crypto/src/random.dart';
 
 class SKCrypto {
   static const ivByteSize = 12;

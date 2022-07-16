@@ -17,8 +17,8 @@
 ///   * Verification.
 
 import 'dart:convert';
-import 'package:zxbase_crypto/hash.dart';
-import 'package:zxbase_crypto/random.dart';
+import 'package:zxbase_crypto/src/hash.dart';
+import 'package:zxbase_crypto/src/random.dart';
 
 enum Fields { version, bits, date, resource, ext, rand, counter }
 

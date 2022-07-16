@@ -7,30 +7,30 @@ Zxbase crypto helpers.
 
 ## Features
 
-* Public key cryptography (Ed25519):
-  * Key pair generation.
-  * Keys serialization / deserialization.
-  * Message signing and verification.
+- Public key cryptography (Ed25519):
+  - Key pair generation.
+  - Keys serialization / deserialization.
+  - Message signing and verification.
 
-* Random bytes generation:
-  * Generate a specified number of cryptographically secure bytes.
+- Random bytes generation:
+  - Generate a specified number of cryptographically secure bytes.
 
-* Symmetric key cryptography:
-  * AES GCM 256:
-    * Synchronous encryption.
-    * Synchronous decryption.
+- Symmetric key cryptography:
+  - AES GCM 256:
+    - Synchronous encryption.
+    - Synchronous decryption.
 
-* Password helpers:
-  * Derivation of a key with Argon2.
-  * Password generation.
-  * Password checks.
+- Password helpers:
+  - Derivation of a key with Argon2.
+  - Password generation.
+  - Password checks.
 
-* Hash:
-  * SHA3 256 hash.
+- Hash:
+  - SHA3 256 hash.
 
-* Hashcash:
-  * Challenge.
-  * Verification.
+- Hashcash:
+  - Challenge.
+  - Verification.
 
 ## Getting started
 In _pubspec.yaml_:
@@ -47,9 +47,9 @@ import 'package:zxbase_crypto/zxbase_crypto.dart';
 ## Usage
 
 Check examples in test files:
-  * test/hash_test.dart  
-  * test/hashcash_test.dart  
-  * test/password_test.dart
-  * test/pk_crypto_test.dart
-  * test/random_test.dart
-  * test/sk_crypto_test.dart
+  - test/hash_test.dart  
+  - test/hashcash_test.dart  
+  - test/password_test.dart
+  - test/pk_crypto_test.dart
+  - test/random_test.dart
+  - test/sk_crypto_test.dart
