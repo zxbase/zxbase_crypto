@@ -22,8 +22,8 @@ void main() {
   });
 
   test('Generate 2 different Ed25519 keys', () async {
-    final keyPair1 = await PKCrypto.generateKeyPair();
-    final keyPair2 = await PKCrypto.generateKeyPair();
+    final SimpleKeyPair keyPair1 = await PKCrypto.generateKeyPair();
+    final SimpleKeyPair keyPair2 = await PKCrypto.generateKeyPair();
 
     expect(keyPair1.extractPrivateKeyBytes(),
         isNot(keyPair2.extractPrivateKeyBytes()));
@@ -32,8 +32,8 @@ void main() {
 
   test('Serialize and deserialize public key', () async {
     // generate key pair, extact public key, serialize, deserialize
-    final keyPair = await PKCrypto.generateKeyPair();
-    final publicKey = await keyPair.extractPublicKey();
+    final SimpleKeyPair keyPair = await PKCrypto.generateKeyPair();
+    final SimplePublicKey publicKey = await keyPair.extractPublicKey();
 
     final json = PKCrypto.publicKeyToJwk(publicKey);
     expect(json['kty'], equals('OKP'));
@@ -50,7 +50,7 @@ void main() {
       // padding is required
       'x': 'km6x_mSpVZA0hOuRtun3RoMXRhqfHesRuoBfZbZ2J7E'
     };
-    final publicKey = PKCrypto.jwkToPublicKey(json);
+    final SimplePublicKey publicKey = PKCrypto.jwkToPublicKey(json);
     final serializedPublicKey = PKCrypto.publicKeyToJwk(publicKey);
     expect(serializedPublicKey['x'],
         equals('km6x_mSpVZA0hOuRtun3RoMXRhqfHesRuoBfZbZ2J7E='));
@@ -59,7 +59,7 @@ void main() {
   test('Serialize and deserialize key pair', () async {
     // generate key pair, sign, serialize, deserialize, verify
     final msg = 'xxx';
-    final keyPair = await PKCrypto.generateKeyPair();
+    final SimpleKeyPair keyPair = await PKCrypto.generateKeyPair();
     final sig = await PKCrypto.sign(msg, keyPair);
 
     final json = await PKCrypto.keyPairToJwk(keyPair);
@@ -69,7 +69,7 @@ void main() {
   });
 
   test('Sign and verify message', () async {
-    final keyPair = await PKCrypto.generateKeyPair();
+    final SimpleKeyPair keyPair = await PKCrypto.generateKeyPair();
     final msg = 'xxx';
     final sig = await PKCrypto.sign(msg, keyPair);
     final rv = await PKCrypto.verifySignature(msg, sig, keyPair);

@@ -1,3 +1,8 @@
+## 3.1.2
+
+- Re-export simple key pair to eliminate future imports of cryptography package.
+- Re-export simple public key to eliminate future imports of cryptography package.
+
 ## 3.1.1
 
 - Set library name, move lib files to lib/src.
