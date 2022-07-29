@@ -14,8 +14,8 @@
 
 /// Cryptographically secure random numbers.
 
-import 'dart:typed_data';
 import 'dart:math';
+import 'dart:typed_data';
 
 Uint8List generateRandomBytes(int length) {
   final buf = Uint8List(length);
