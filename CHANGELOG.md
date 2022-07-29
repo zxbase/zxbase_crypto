@@ -1,12 +1,11 @@
 ## 3.1.3
 
 - Introduce stricter linter rules.
-- Upgrade Pointy Castle package.
 
 ## 3.1.2
 
-- Re-export simple key pair to eliminate future imports of cryptography package.
-- Re-export simple public key to eliminate future imports of cryptography package.
+- Re-export simple key pair eliminating future imports of cryptography package.
+- Re-export simple public key eliminating future imports of cryptography package.
 
 ## 3.1.1
 
