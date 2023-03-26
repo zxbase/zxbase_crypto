@@ -2,6 +2,12 @@
 
 How to contribute to this project.
 
+## Feature development
+1. Create feature branch: `git branch my-feature`.
+2. Switch to it: `git checkout my-feature`.
+3. Once ready (see pre-commit check) - create merge request
+   to be merged into main.
+
 ## Pre-commit check
 Format code with default formatter.
 ```
@@ -15,7 +21,7 @@ tool/analyze
 
 Pass tests.
 ```
-dart test
+tool/test
 ```
 
 Check coverage is not degrading.
@@ -56,4 +62,3 @@ file/feature ...", or "Make Subsurface..."
 
 Source:
 https://github.com/torvalds/subsurface-for-dirk/blob/a48494d2fbed58c751e9b7e8fbff88582f9b2d02/README#L88
-
