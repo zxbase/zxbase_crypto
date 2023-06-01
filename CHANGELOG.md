@@ -1,3 +1,7 @@
+## 3.1.4
+
+- Switch to Dart 3.
+
 ## 3.1.3
 
 - Introduce stricter linter rules.
