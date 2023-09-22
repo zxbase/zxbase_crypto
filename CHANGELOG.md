@@ -1,3 +1,7 @@
+## 3.1.5
+
+- Upgrade SDK and update cryptography to 2.7.0.
+
 ## 3.1.4
 
 - Switch to Dart 3.
