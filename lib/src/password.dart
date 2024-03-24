@@ -12,10 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/// Password helpers:
-///   * Derivation of a key with Argon2.
-///   * Password generation.
-///   * Password checks.
+// Password helpers:
+//   * Derivation of a key with Argon2.
+//   * Password generation.
+//   * Password checks.
 
 import 'dart:convert';
 import 'dart:math';

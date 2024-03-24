@@ -12,10 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/// Public key cryptography Ed25519 helpers:
-///   * Generation.
-///   * Serialization / deserialization.
-///   * Signing and verification.
+// Public key cryptography Ed25519 helpers:
+//   * Generation.
+//   * Serialization / deserialization.
+//   * Signing and verification.
 
 import 'dart:convert';
 import 'package:cryptography/cryptography.dart';

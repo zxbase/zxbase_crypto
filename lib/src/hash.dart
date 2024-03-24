@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/// SHA3 256 hash
+// SHA3 256 hash
 
 import 'dart:convert';
 import 'dart:typed_data';

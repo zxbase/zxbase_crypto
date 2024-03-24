@@ -12,8 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/// Symmetric key cryptography helpers.
-/// Synchronous AES GCM 256 functionality.
+// Symmetric key cryptography helpers.
+// Synchronous AES GCM 256 functionality.
 
 import 'dart:typed_data';
 import 'package:pointycastle/export.dart';

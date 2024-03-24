@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/// Aggregation of IV and encrypted data (including mac).
+// Aggregation of IV and encrypted data (including mac).
 
 import 'dart:typed_data';
 

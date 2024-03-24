@@ -14,10 +14,10 @@
 
 library zxbase_crypto;
 
-/// Re-export simple key pair to eliminate unnecessary future imports
+// Re-export simple key pair to eliminate unnecessary future imports
 export 'package:cryptography/src/cryptography/simple_key_pair.dart';
 
-/// Re-export simple public key to eliminate unnecessary future imports.
+// Re-export simple public key to eliminate unnecessary future imports.
 export 'package:cryptography/src/cryptography/simple_public_key.dart';
 
 export 'src/hash.dart';
