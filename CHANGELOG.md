@@ -1,3 +1,7 @@
+## 3.1.6
+
+- Upgrade lints to 4.0.0
+
 ## 3.1.5
 
 - Upgrade SDK and update cryptography to 2.7.0.
