@@ -17,16 +17,20 @@ import 'package:zxbase_crypto/zxbase_crypto.dart';
 
 void main() {
   test('Check jwk format', () async {
-    expect(() => PKCrypto.jwkToPublicKey({'kty': 'OKT'}),
-        throwsA(isA<FormatException>()));
+    expect(
+      () => PKCrypto.jwkToPublicKey({'kty': 'OKT'}),
+      throwsA(isA<FormatException>()),
+    );
   });
 
   test('Generate 2 different Ed25519 keys', () async {
     final SimpleKeyPair keyPair1 = await PKCrypto.generateKeyPair();
     final SimpleKeyPair keyPair2 = await PKCrypto.generateKeyPair();
 
-    expect(keyPair1.extractPrivateKeyBytes(),
-        isNot(keyPair2.extractPrivateKeyBytes()));
+    expect(
+      keyPair1.extractPrivateKeyBytes(),
+      isNot(keyPair2.extractPrivateKeyBytes()),
+    );
     expect(keyPair1.extractPublicKey(), isNot(keyPair2.extractPublicKey()));
   });
 
@@ -48,12 +52,14 @@ void main() {
       'kty': 'OKP',
       'crv': 'Ed25519',
       // padding is required
-      'x': 'km6x_mSpVZA0hOuRtun3RoMXRhqfHesRuoBfZbZ2J7E'
+      'x': 'km6x_mSpVZA0hOuRtun3RoMXRhqfHesRuoBfZbZ2J7E',
     };
     final SimplePublicKey publicKey = PKCrypto.jwkToPublicKey(json);
     final serializedPublicKey = PKCrypto.publicKeyToJwk(publicKey);
-    expect(serializedPublicKey['x'],
-        equals('km6x_mSpVZA0hOuRtun3RoMXRhqfHesRuoBfZbZ2J7E='));
+    expect(
+      serializedPublicKey['x'],
+      equals('km6x_mSpVZA0hOuRtun3RoMXRhqfHesRuoBfZbZ2J7E='),
+    );
   });
 
   test('Serialize and deserialize key pair', () async {
@@ -64,8 +70,10 @@ void main() {
 
     final json = await PKCrypto.keyPairToJwk(keyPair);
     final deserializedKeyPair = await PKCrypto.jwkToKeyPair(json);
-    expect(await PKCrypto.verifySignature(msg, sig, deserializedKeyPair),
-        equals(true));
+    expect(
+      await PKCrypto.verifySignature(msg, sig, deserializedKeyPair),
+      equals(true),
+    );
   });
 
   test('Sign and verify message', () async {

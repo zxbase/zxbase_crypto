@@ -20,17 +20,21 @@ void main() {
     String msg = 'balblabla';
     String dig = Hash.hash3_256(msg);
     expect(
-        dig,
-        equals(
-            '6571c8f32b08e551836fb66f248aabbbd45a7f1ed14779f6d028cdd73bbf83d7'));
+      dig,
+      equals(
+        '6571c8f32b08e551836fb66f248aabbbd45a7f1ed14779f6d028cdd73bbf83d7',
+      ),
+    );
   });
 
   test('SHA3 256 hash hello world', () {
     String msg = 'Hello World';
     String dig = Hash.hash3_256(msg);
     expect(
-        dig,
-        equals(
-            'e167f68d6563d75bb25f3aa49c29ef612d41352dc00606de7cbd630bb2665f51'));
+      dig,
+      equals(
+        'e167f68d6563d75bb25f3aa49c29ef612d41352dc00606de7cbd630bb2665f51',
+      ),
+    );
   });
 }

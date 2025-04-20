@@ -49,7 +49,7 @@ void main() {
     123,
     152,
     126,
-    132
+    132,
   ]);
 
   test('Decrypt', () {
@@ -85,10 +85,22 @@ void main() {
       42,
       37,
       188,
-      98
+      98,
     ]);
-    final iv = Uint8List.fromList(
-        [211, 33, 139, 203, 28, 220, 247, 22, 68, 1, 87, 85]);
+    final iv = Uint8List.fromList([
+      211,
+      33,
+      139,
+      203,
+      28,
+      220,
+      247,
+      22,
+      68,
+      1,
+      87,
+      85,
+    ]);
     final enc = Uint8List.fromList([
       224,
       21,
@@ -137,7 +149,7 @@ void main() {
       86,
       95,
       9,
-      186
+      186,
     ]);
 
     final dec = SKCrypto.decryptSync(iv: iv, buffer: enc, key: key);

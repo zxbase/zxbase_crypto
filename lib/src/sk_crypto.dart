@@ -25,28 +25,33 @@ class SKCrypto {
   static const keyByteSize = 32;
   static const macBitSize = 128;
 
-  static IVData encryptSync(
-      {required Uint8List buffer, required Uint8List key}) {
+  static IVData encryptSync({
+    required Uint8List buffer,
+    required Uint8List key,
+  }) {
     final iv = generateRandomBytes(ivByteSize);
 
     final aesCipher = GCMBlockCipher(AESEngine())
       ..init(
-          true,
-          AEADParameters(
-              KeyParameter(key), macBitSize, iv, Uint8List.fromList([])));
+        true,
+        AEADParameters(
+            KeyParameter(key), macBitSize, iv, Uint8List.fromList([])),
+      );
 
     return IVData(iv: iv, data: aesCipher.process(buffer));
   }
 
-  static Uint8List decryptSync(
-      {required Uint8List iv,
-      required Uint8List buffer,
-      required Uint8List key}) {
+  static Uint8List decryptSync({
+    required Uint8List iv,
+    required Uint8List buffer,
+    required Uint8List key,
+  }) {
     final aesCipher = GCMBlockCipher(AESEngine())
       ..init(
-          false,
-          AEADParameters(
-              KeyParameter(key), macBitSize, iv, Uint8List.fromList([])));
+        false,
+        AEADParameters(
+            KeyParameter(key), macBitSize, iv, Uint8List.fromList([])),
+      );
 
     return aesCipher.process(buffer);
   }

@@ -47,8 +47,9 @@ class Password {
   ///     length is between 8 and 32,
   static final upperLowerCaseRE = RegExp(r'^(?=.*[a-z])(?=.*[A-Z])');
   static final numberSpecialRE = RegExp(r'^(?=.*\d)(?=.*[#?!@$%^&*-])');
-  static final okRE =
-      RegExp(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#?!@$%^&*-]).{8,32}$');
+  static final okRE = RegExp(
+    r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#?!@$%^&*-]).{8,32}$',
+  );
 
   /// Generate 128-bit salt.
   static Uint8List generateSalt() {
@@ -56,30 +57,35 @@ class Password {
   }
 
   /// Derive 256-bit key from the password string and 128-bit salt using Argon2i.
-  static Uint8List derive256BitKey(
-      {required String pwd, required Uint8List salt}) {
+  static Uint8List derive256BitKey({
+    required String pwd,
+    required Uint8List salt,
+  }) {
     final passwordBytes = Uint8List.fromList(utf8.encode(pwd));
 
     final generator = Argon2BytesGenerator()
-      ..init(Argon2Parameters(
-        Argon2Parameters.ARGON2_i,
-        salt,
-        desiredKeyLength: SKCrypto.keyByteSize,
-        version: Argon2Parameters.ARGON2_VERSION_13,
-        iterations: 2,
-        memoryPowerOf2: 16,
-      ));
+      ..init(
+        Argon2Parameters(
+          Argon2Parameters.ARGON2_i,
+          salt,
+          desiredKeyLength: SKCrypto.keyByteSize,
+          version: Argon2Parameters.ARGON2_VERSION_13,
+          iterations: 2,
+          memoryPowerOf2: 16,
+        ),
+      );
 
     return generator.process(passwordBytes);
   }
 
   /// Generate password.
-  static String generatePassword(
-      {bool lowerCase = true,
-      bool upperCase = true,
-      bool numbers = true,
-      bool special = true,
-      int length = 10}) {
+  static String generatePassword({
+    bool lowerCase = true,
+    bool upperCase = true,
+    bool numbers = true,
+    bool special = true,
+    int length = 10,
+  }) {
     if (length < Password.minLength) {
       throw Exception('Insufficient password length $length');
     }

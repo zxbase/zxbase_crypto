@@ -75,8 +75,24 @@ void main() {
   });
 
   test('Determenistic password derivation', () {
-    final salt = Uint8List.fromList(
-        [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]);
+    final salt = Uint8List.fromList([
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+    ]);
     final pwd = 'password';
 
     final derivedPwd = Password.derive256BitKey(pwd: pwd, salt: salt);
@@ -113,7 +129,7 @@ void main() {
       65,
       15,
       80,
-      27
+      27,
     ]);
 
     expect(derivedPwd, equals(expectedPwd));
@@ -158,7 +174,9 @@ void main() {
 
   test('Try to generate password of insufficient length', () async {
     expect(
-        () => Password.generatePassword(length: 7), throwsA(isA<Exception>()));
+      () => Password.generatePassword(length: 7),
+      throwsA(isA<Exception>()),
+    );
   });
 
   test('Validate password 1', () async {

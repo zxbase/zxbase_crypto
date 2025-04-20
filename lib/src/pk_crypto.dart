@@ -50,7 +50,7 @@ class PKCrypto {
     return {
       'kty': 'OKP',
       'crv': 'Ed25519',
-      'x': base64Url.encode(publicKey.bytes)
+      'x': base64Url.encode(publicKey.bytes),
     };
   }
 
@@ -62,7 +62,8 @@ class PKCrypto {
   }
 
   static Future<Map<String, dynamic>> keyPairToJwk(
-      SimpleKeyPair keyPair) async {
+    SimpleKeyPair keyPair,
+  ) async {
     final bytes = await keyPair.extractPrivateKeyBytes();
     return {'kty': 'OKP', 'crv': 'Ed25519', 'x': base64Url.encode(bytes)};
   }
@@ -82,13 +83,19 @@ class PKCrypto {
   }
 
   static Future<bool> verifySignatureWithPublicKey(
-      String msg, String sig, SimplePublicKey publicKey) async {
+    String msg,
+    String sig,
+    SimplePublicKey publicKey,
+  ) async {
     final signature = Signature(base64Url.decode(sig), publicKey: publicKey);
     return await _algorithm.verify(utf8.encode(msg), signature: signature);
   }
 
   static Future<bool> verifySignature(
-      String msg, String sig, SimpleKeyPair keyPair) async {
+    String msg,
+    String sig,
+    SimpleKeyPair keyPair,
+  ) async {
     final pubKey = await keyPair.extractPublicKey();
     return await verifySignatureWithPublicKey(msg, sig, pubKey);
   }
