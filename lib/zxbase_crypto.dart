@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-library zxbase_crypto;
+library;
 
 // Re-export simple key pair to eliminate unnecessary future imports
 export 'package:cryptography/src/cryptography/simple_key_pair.dart';
